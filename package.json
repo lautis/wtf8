@@ -1,0 +1,31 @@
+{
+  "name": "utf8-util",
+  "description": "UTF-8 encoder and decoder which is able to handle characters outside Basic Multilingual Plane",
+  "version": "0.1.0",
+  "homepage": "http://github.com/lautis/utf8-util",
+  "author": "Ville Lautanala <lautis@gmail.com",
+  "main": "./utf8-util.js",
+  "directories": {
+    "lib": "."
+  },
+  "scripts": {
+    "test": "node test/index.js",
+    "preinstall": "node-waf configure build"
+  },
+  "repository" : {
+      "type" : "git",
+      "url" : "http://github.com/lautis/utf8-util.git"
+  },
+  "devDependencies": {
+    "benchmark": "0.3.0",
+    "iconv": "1.1.3",
+    "microtime": "0.2.0"
+  },
+  "keywords": [
+    "utf8"
+  ]
+  "license" : "MIT",
+  "engines": {
+    "node": "*"
+  }
+}
