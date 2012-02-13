@@ -1,5 +1,5 @@
 var assert = require("assert");
-var utf8 = require("utf8-util");
+var utf8 = require("../wtf8");
 var helper = require("./common");
 var encode = helper.encode;
 var test = helper.test;

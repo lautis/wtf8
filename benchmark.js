@@ -1,5 +1,5 @@
 var Benchmark = require('benchmark');
-var utf8util = require('./utf8-util');
+var utf8 = require('./wtf8');
 var Iconv = require('iconv').Iconv
 
 var buffer = new Buffer("foobar");
@@ -14,8 +14,8 @@ convert = new Iconv("UTF-8", "UTF-16LE");
 
 var suite = new Benchmark.Suite("Decode Buffer to String");
 suite
-.add('utf8-util decoder', function() {
-  utf8util.decode(buffer);
+.add('wtf8 decoder', function() {
+  utf8.decode(buffer);
 })
 .add('Buffer.toString()', function() {
   buffer.toString('utf8')
@@ -42,8 +42,8 @@ suite
 .add('new Buffer()', function() {
   new Buffer(str)
 })
-.add('utf8-util encoder', function() {
-  utf8util.encode(str);
+.add('wtf8 encoder', function() {
+  utf8.encode(str);
 })
 .add('encodeUri & unescape', function() {
   var utf8 = unescape(encodeURIComponent(str));

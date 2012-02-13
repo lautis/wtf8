@@ -112,4 +112,4 @@ namespace {
   }
 }
 
-NODE_MODULE(utf8util, RegisterModule);
+NODE_MODULE(wtf8, RegisterModule);
