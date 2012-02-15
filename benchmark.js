@@ -1,6 +1,13 @@
 var Benchmark = require('benchmark');
 var utf8 = require('./wtf8');
-var Iconv = require('iconv').Iconv
+
+var convert = null;
+try {
+  var Iconv = require('iconv').Iconv;
+  convert = new Iconv("UTF-8", "UTF-16LE");
+} catch(ex) {
+  console.log("`npm install iconv` if you want to benchmark Iconv.");
+}
 
 var buffer = new Buffer("foobar");
 
@@ -10,7 +17,6 @@ for (var i = 0; i < 5000; i++) {
 }
 
 buffer = new Buffer(str);
-convert = new Iconv("UTF-8", "UTF-16LE");
 
 var suite = new Benchmark.Suite("Decode Buffer to String");
 suite
