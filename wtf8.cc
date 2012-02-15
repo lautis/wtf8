@@ -64,12 +64,15 @@ namespace {
           "Argument should be a String.")));
     }
 
-    std::vector<char> accumulator;
     Local<String> string = args[0]->ToString();
     String::Value int16value(string);
     const uint16_t* data = *int16value;
     const size_t length = string->Length();
     size_t i = 0;
+
+    std::vector<char> accumulator;
+    // Reserve enough space for ASCII string
+    accumulator.reserve(string->Length());
 
     while (i < length) {
       const uint16_t chr = data[i];
