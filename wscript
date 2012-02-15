@@ -9,6 +9,6 @@ def configure(ctx):
 
 def build(ctx):
   t = ctx.new_task_gen('cxx', 'shlib', 'node_addon')
-  t.cxxflags = ["-g", "-Wall", '-O3']
+  t.cxxflags = ["-g", "-Wall", '-Os']
   t.target = 'wtf8'
   t.source = 'wtf8.cc'
