@@ -13,7 +13,7 @@ var buffer = new Buffer("foobar");
 
 var str = "";
 for (var i = 0; i < 5000; i++) {
-  str += String.fromCharCode(0);
+  str += String.fromCharCode(i % 128);
 }
 
 buffer = new Buffer(str);
