@@ -5,7 +5,7 @@
     "utf8",
     "unicode"
   ],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "http://github.com/lautis/wtf8",
   "author": "Ville Lautanala <lautis@gmail.com",
   "main": "./wtf8.js",
