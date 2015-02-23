@@ -105,12 +105,9 @@ namespace {
     }
 
     Local<Object> slowBuffer = NanNewBufferHandle(accumulator.size());
-    // Buffer& slowBuffer = *Buffer::New(accumulator.size());
-    // char* underlying = Buffer::Data(slowBuffer.handle_);
     char* underlying = node::Buffer::Data(slowBuffer);
     memcpy(underlying, &accumulator[0], accumulator.size());
 
-    // NanReturnValue(slowBuffer.handle_);
     NanReturnValue(slowBuffer);
   }
 
