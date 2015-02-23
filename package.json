@@ -16,16 +16,19 @@
     "test": "node test/index.js",
     "preinstall": "node-gyp configure build"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "http://github.com/lautis/wtf8.git"
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/lautis/wtf8.git"
   },
   "devDependencies": {
     "benchmark": "0.3.0",
     "microtime": "0.2.0"
   },
-  "license" : "MIT",
+  "license": "MIT",
   "engines": {
     "node": "*"
+  },
+  "dependencies": {
+    "nan": "^1.6.2"
   }
 }
