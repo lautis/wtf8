@@ -13,8 +13,7 @@
     "lib": "."
   },
   "scripts": {
-    "test": "node test/index.js",
-    "preinstall": "node-gyp configure build"
+    "test": "node test/index.js"
   },
   "repository": {
     "type": "git",
