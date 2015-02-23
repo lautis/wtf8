@@ -1,4 +1,4 @@
-# WTF8
+# WTF8 [![Build Status](https://travis-ci.org/lautis/wtf8.svg?branch=travis-ci)](https://travis-ci.org/lautis/wtf8)
 
 A UTF-8 decoder and encoder which can handle characters outside Basic Multilingual Plane for node.js. It's also reasonably fast.
 
