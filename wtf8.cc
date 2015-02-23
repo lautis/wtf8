@@ -36,7 +36,7 @@ namespace {
         uint32_t chr = (((data[i] & 0x07) << 18) | ((data[i+1] & 0x3F) << 12) | ((data[i+2] & 0x3F) << 6) | (data[i+3] & 0x3F)) - 0x10000;
 
         // Write as surrogate pair
-        uint16_t surrogate[2] = {0xD800 | (chr >> 10), 0xDC00 | (chr & 0x3FF)};
+        uint16_t surrogate[2] = { static_cast<uint16_t>(0xD800 | (chr >> 10)),  static_cast<uint16_t>(0xDC00 | (chr & 0x3FF))};
 
         // Concatenate to result
         result = String::Concat(result, NanNew<String>(surrogate, 2));
