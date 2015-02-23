@@ -21,8 +21,8 @@
     "url": "http://github.com/lautis/wtf8.git"
   },
   "devDependencies": {
-    "benchmark": "0.3.0",
-    "microtime": "0.2.0"
+    "benchmark": "^1.0.0",
+    "microtime": "^1.2.0"
   },
   "license": "MIT",
   "engines": {
