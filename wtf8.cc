@@ -1,6 +1,7 @@
 #include <v8.h>
 #include <node.h>
 #include <node_buffer.h>
+#include <nan.h>
 
 #include <stdint.h>
 #include <cstring>
@@ -10,11 +11,12 @@ using namespace v8;
 using namespace node;
 
 namespace {
-  Handle<Value> Decode(const Arguments& args) {
-    HandleScope scope;
+  NAN_METHOD(Decode) {
+    NanScope();
 
     if (!Buffer::HasInstance(args[0])) {
-      return ThrowException(Exception::TypeError(String::New(
+
+      NanThrowError(Exception::TypeError(NanNew<String>(
           "Argument should be a Buffer object.")));
     }
 
@@ -25,10 +27,10 @@ namespace {
     size_t split = 0;
     size_t i = 0;
 
-    Local<String> result = String::Empty();
+    Local<String> result = NanNew<String>();
     while (i < length) {
       if ((data[i] & 0xF0) == 0xF0 && i + 4 <= length) {
-        result = String::Concat(result, String::New(data, i));
+        result = String::Concat(result, NanNew<String>(data, i));
 
         // Convert 4-byte UTF-8 to Unicode code point
         uint32_t chr = (((data[i] & 0x07) << 18) | ((data[i+1] & 0x3F) << 12) | ((data[i+2] & 0x3F) << 6) | (data[i+3] & 0x3F)) - 0x10000;
@@ -37,7 +39,7 @@ namespace {
         uint16_t surrogate[2] = {0xD800 | (chr >> 10), 0xDC00 | (chr & 0x3FF)};
 
         // Concatenate to result
-        result = String::Concat(result, String::New(surrogate, 2));
+        result = String::Concat(result, NanNew<String>(surrogate, 2));
 
         data += i + 4;
         length -= (i + 4);
@@ -47,7 +49,7 @@ namespace {
       }
     }
 
-    return scope.Close(String::Concat(result, String::New(data + split, length - split)));
+    NanReturnValue(String::Concat(result, NanNew<String>(data + split, length - split)));
   }
 
   void replacement_character(std::vector<char>& vector) {
@@ -56,11 +58,11 @@ namespace {
     vector.push_back(0xBF);
   }
 
-  Handle<Value> Encode(const Arguments& args) {
-    HandleScope scope;
+  NAN_METHOD(Encode) {
+    NanScope();
 
     if (!args[0]->IsString()) {
-      return ThrowException(Exception::TypeError(String::New(
+      NanThrowError(Exception::TypeError(NanNew<String>(
           "Argument should be a String.")));
     }
 
@@ -102,16 +104,16 @@ namespace {
       i++;
     }
 
-    Buffer& slowBuffer = *Buffer::New(accumulator.size());
-    char* underlying = Buffer::Data(slowBuffer.handle_);
+    Local<Object> slowBuffer = NanNewBufferHandle(accumulator.size());
+    char* underlying = node::Buffer::Data(slowBuffer);
     memcpy(underlying, &accumulator[0], accumulator.size());
 
-    return scope.Close(slowBuffer.handle_);
+    NanReturnValue(slowBuffer);
   }
 
   void RegisterModule(Handle<Object> target) {
-    target->Set(String::NewSymbol("decode"), FunctionTemplate::New(Decode)->GetFunction());
-    target->Set(String::NewSymbol("encode"), FunctionTemplate::New(Encode)->GetFunction());
+    target->Set(NanNew<String>("decode"), NanNew<FunctionTemplate>(Decode)->GetFunction());
+    target->Set(NanNew<String>("encode"), NanNew<FunctionTemplate>(Encode)->GetFunction());
   }
 }
 
